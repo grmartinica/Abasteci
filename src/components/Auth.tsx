@@ -10,7 +10,13 @@ export default function Auth() {
     setLoading(true);
     const supabase = getSupabase();
     if (isSignUp) {
-      const { error, data } = await supabase.auth.signUp({ email, password });
+      const { error, data } = await supabase.auth.signUp({ 
+        email, 
+        password,
+        options: {
+          emailRedirectTo: import.meta.env.VITE_APP_URL || window.location.origin,
+        }
+      });
       if (error) {
         console.error('Registration error:', error);
         alert(`Error: ${error.message}`);
