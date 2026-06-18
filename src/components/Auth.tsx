@@ -14,7 +14,8 @@ export default function Auth() {
         email, 
         password,
         options: {
-          emailRedirectTo: import.meta.env.VITE_APP_URL || window.location.origin,
+          // Garante que o redirecionamento vá para a raiz da app
+          emailRedirectTo: window.location.origin, 
         }
       });
       if (error) {
