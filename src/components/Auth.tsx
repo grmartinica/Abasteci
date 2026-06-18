@@ -10,12 +10,19 @@ export default function Auth() {
     setLoading(true);
     const supabase = getSupabase();
     if (isSignUp) {
-      const { error } = await supabase.auth.signUp({ email, password });
-      if (error) alert(error.message);
-      else alert('Check your email for confirmation!');
+      const { error, data } = await supabase.auth.signUp({ email, password });
+      if (error) {
+        console.error('Registration error:', error);
+        alert(`Error: ${error.message}`);
+      } else {
+        alert('Check your email for confirmation!');
+      }
     } else {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) alert(error.message);
+      if (error) {
+        console.error('Login error:', error);
+        alert(`Error: ${error.message}`);
+      }
     }
     setLoading(false);
   };
